@@ -11,7 +11,19 @@
  * @returns {Promise<Array>}
  */
 
-async function filterTodosByKeyword(keyword) {}
+async function filterTodosByKeyword(keyword) {
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/todos ");
+    const data = await res.json();
+    const filteredData = data.filter((e) =>
+      e.title.toLowerCase().includes(keyword.toLowerCase())
+    );
 
+    return filteredData.length > 0 ? filteredData : [];
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+}
 // export 수정 불가
 export { filterTodosByKeyword };
